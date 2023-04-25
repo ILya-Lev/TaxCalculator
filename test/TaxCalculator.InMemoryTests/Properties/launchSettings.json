@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "TaxCalculator.InMemoryTests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:19006;http://localhost:19007"
+    }
+  }
+}
