@@ -83,11 +83,11 @@ public class TaxCalculatorControllerTests : IClassFixture<WebApplicationFactory<
 /*
  * sample request for manual testing
 {
-  "incomeByYear": {"2021": 1 500 000,"2022":1 000 000,"2023":2 000 000},
+  "incomeByYear": {"2021": 1500000,"2022":1000000,"2023":2000000},
   "rulesByYear": {
     "2021": [
-        { "upperBound": 1 000 000, "rate": 3, "fixedPayment": 750 },
-        { "upperBound": 2 000 000, "rate": 4, "fixedPayment": 1500 },
+        { "upperBound": 1000000, "rate": 3, "fixedPayment": 750 },
+        { "upperBound": 2000000, "rate": 4, "fixedPayment": 1500 }
     ]
   }
 }

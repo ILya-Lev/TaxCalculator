@@ -6,13 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.TryAddScoped<ICalculator, Calculator>();
 
-builder.Services.TryAddScoped<InMemoryTaxationRuleProvider>();
 builder.Services.TryAddScoped<ITaxationRuleProvider, InMemoryTaxationRuleProvider>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+ 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

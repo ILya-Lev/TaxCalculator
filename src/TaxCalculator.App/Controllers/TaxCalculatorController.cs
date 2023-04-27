@@ -39,12 +39,13 @@ public class TaxCalculatorController : ControllerBase
     }
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> CalculateForRange(
-        [FromBody] RangeCalculationModel calculationModel)
+    public async Task<IActionResult> CalculateForRange([FromBody] RangeCalculationModel model)
     {
         await Task.Yield();
-        _ruleStorage.Store(calculationModel.RulesByYear);
-        var taxByYear = _rangeCalculator.GetTaxAmounts(calculationModel.IncomeByYear);
+
+        _ruleStorage.Store(model.RulesByYear);
+        var taxByYear = _rangeCalculator.GetTaxAmounts(model.IncomeByYear);
+
         return Ok(taxByYear);
     }
 }
