@@ -16,7 +16,7 @@ public class RangeCalculator : IRangeCalculator
         {
             try
             {
-                return _calculator.GetTaxAmount(p.Value, p.Key);
+                return _calculator.GetTaxAmount(income: p.Value, year: p.Key);
             }
             catch
             {

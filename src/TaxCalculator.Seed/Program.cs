@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using TaxCalculator.Seed.Calculators;
 using TaxCalculator.Seed.RuleProviders;
-
+//Composition Root
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.TryAddScoped<ICalculator, Calculator>();

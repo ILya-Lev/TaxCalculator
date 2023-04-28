@@ -17,6 +17,7 @@ builder.Services.TryAddScoped<ITaxationRuleProvider>(sp =>
         sp.GetRequiredService<InMemoryTaxationRuleProvider>(),
     };
 
+    //return ActivatorUtilities.CreateInstance<CompositeTaxationRuleProvider>(sp, providers);
     return new CompositeTaxationRuleProvider(providers);
 });
 
