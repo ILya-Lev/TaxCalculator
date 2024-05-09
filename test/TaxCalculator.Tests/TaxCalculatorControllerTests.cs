@@ -10,6 +10,7 @@ using Xunit.Abstractions;
 
 namespace TaxCalculator.Tests;
 
+[Trait("Category", "Integration")]
 public class TaxCalculatorControllerTests : IDisposable
 {
     private const decimal Income = 500_654.59m;
@@ -52,7 +53,7 @@ public class TaxCalculatorControllerTests : IDisposable
     }
 
     [Fact]
-    public void Calculate_ViaService_RulesCoverGivenYear_ProduceNumber()
+    public void GetTaxAmount_ViaService_RulesCoverGivenYear_ProduceNumber()
     {
         var taxAmount = _calculator.GetTaxAmount(Income, Year);
 
@@ -72,7 +73,7 @@ public class TaxCalculatorControllerTests : IDisposable
     }
 
     [Fact]
-    public void Calculate_ViaService_FutureYear_Error()
+    public void GetTaxAmount_ViaService_FutureYear_Exception()
     {
         var getTaxAmount = () => _calculator.GetTaxAmount(Income, Year + 10);
 
