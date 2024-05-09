@@ -1,8 +1,8 @@
-using System.Net;
-using System.Text.Json;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net;
+using System.Text.Json;
 using TaxCalculator.App;
 using TaxCalculator.App.Entities;
 using Xunit.Abstractions;
@@ -30,7 +30,7 @@ public class TaxCalculatorControllerTests : IClassFixture<WebApplicationFactory<
                                                "?income=1000000&year=2023");
         
         decimal.TryParse(raw, out var amount).Should().BeTrue();
-        amount.Should().Be(41_000);
+        amount.Should().Be(51_500);
     }
 
     [Fact]
@@ -76,7 +76,7 @@ public class TaxCalculatorControllerTests : IClassFixture<WebApplicationFactory<
         taxesByYear.Should().NotBeNull();
         taxesByYear![2021].Should().BeApproximately(41_119, 1);
         taxesByYear[2022].Should().Be(136_000);
-        taxesByYear[2023].Should().BeApproximately(93_026, 1);
+        taxesByYear[2023].Should().BeApproximately(164_546, 1);
         _output.WriteLine(raw);
     }
 }

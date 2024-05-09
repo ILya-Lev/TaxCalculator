@@ -9,7 +9,10 @@ public interface ITaxationRuleStorage
 
 public class TaxationRuleRepository : ITaxationRuleStorage, ITaxationRuleProvider
 {
+    private readonly ITaxationRuleProvider? _decoratee;
     private readonly Dictionary<int, List<TaxationRule>> _storage = new();
+
+    public TaxationRuleRepository(ITaxationRuleProvider? decoratee) => _decoratee = decoratee;
 
     public void Store(IReadOnlyDictionary<int, TaxationRule[]> rulesByYear)
     {
@@ -22,8 +25,12 @@ public class TaxationRuleRepository : ITaxationRuleStorage, ITaxationRuleProvide
         }
     }
 
-    public IReadOnlyCollection<TaxationRule> GetRules(int year) => _storage
-        .TryGetValue(year, out var rules) 
-        ? rules
-        : Array.Empty<TaxationRule>();
+    public IReadOnlyCollection<TaxationRule> GetRules(int year)
+    {
+        var decorateeRules = _decoratee?.GetRules(year) ?? Array.Empty<TaxationRule>();
+
+        return _storage.TryGetValue(year, out var rules)
+            ? rules.Union(decorateeRules).ToArray()
+            : decorateeRules;
+    }
 }

@@ -7,22 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.TryAddScoped<ICalculator, Calculator>();
 builder.Services.TryAddScoped<IRangeCalculator, RangeCalculator>();
 
-builder.Services.TryAddScoped<TaxationRuleRepository>();
-builder.Services.TryAddScoped<InMemoryTaxationRuleProvider>();
-builder.Services.TryAddScoped<ITaxationRuleProvider>(sp =>
-{
-    var providers = new ITaxationRuleProvider[]
-    {
-        sp.GetRequiredService<TaxationRuleRepository>(),
-        sp.GetRequiredService<InMemoryTaxationRuleProvider>(),
-    };
-
-    //return ActivatorUtilities.CreateInstance<CompositeTaxationRuleProvider>(sp, providers);
-    return new CompositeTaxationRuleProvider(providers);
-});
-
+builder.Services.TryAddScoped<ITaxationRuleProvider, InMemoryTaxationRuleProvider>();
+builder.Services.Decorate<ITaxationRuleProvider, TaxationRuleRepository>();
 builder.Services.TryAddScoped<ITaxationRuleStorage>(sp => 
-    sp.GetRequiredService<TaxationRuleRepository>());
+    sp.GetRequiredService<ITaxationRuleProvider>() as ITaxationRuleStorage);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
