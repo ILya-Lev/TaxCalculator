@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using TaxCalculator.App;
 using TaxCalculator.App.Calculators;
 using TaxCalculator.App.RuleProviders;
 
@@ -20,6 +21,8 @@ builder.Services.TryAddScoped<ITaxationRuleStorage>(sp =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHostedService<FileWorker>();
 
 var app = builder.Build();
 
