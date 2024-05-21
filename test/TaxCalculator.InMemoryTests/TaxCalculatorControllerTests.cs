@@ -46,6 +46,17 @@ public class TaxCalculatorControllerTests : IClassFixture<WebApplicationFactory<
     }
 
     [Fact]
+    public async Task Calculate_UrlMisprint_NotFound()
+    {
+        var response = await _client.GetAsync("api/TaxCalculator/Calculated");
+
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        
+        var message = await response.Content.ReadAsStringAsync();
+        _output.WriteLine(message);
+    }
+
+    [Fact]
     public async Task CalculateForRange_StandardFlow_Ok()
     {
         var calculationModel = new RangeCalculationModel()

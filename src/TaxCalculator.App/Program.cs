@@ -15,7 +15,7 @@ builder.Services.TryAddScoped<IRangeCalculator, RangeCalculator>();
 
 builder.Services.TryAddScoped<ITaxationRuleProvider, InMemoryTaxationRuleProvider>();
 builder.Services.Decorate<ITaxationRuleProvider, TaxationRuleRepository>();
-builder.Services.TryAddScoped<ITaxationRuleStorage>(sp => 
+builder.Services.TryAddScoped<ITaxationRuleStorage>(sp =>
     (sp.GetRequiredService<ITaxationRuleProvider>() as ITaxationRuleStorage)!);
 
 builder.Services.AddControllers();
@@ -26,19 +26,14 @@ builder.Services.AddHostedService<FileWorker>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseStatusCodePages();
+
+app.UseSwagger();
+app.UseSwaggerUI(opt =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(opt =>
-    {
-        opt.ConfigObject.DisplayRequestDuration = true;
-        opt.ConfigObject.TryItOutEnabled = true;
-    });
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+    opt.ConfigObject.DisplayRequestDuration = true;
+    opt.ConfigObject.TryItOutEnabled = true;
+});
 
 app.MapControllers();
 
