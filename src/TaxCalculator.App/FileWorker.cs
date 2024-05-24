@@ -14,7 +14,7 @@ public class FileWorker : BackgroundService
         {
             await using var stream = File.Open(path, FileMode.Append, FileAccess.Write, FileShare.Read);
             await using var writer = new StreamWriter(stream, Encoding.UTF8);
-            await writer.WriteLineAsync($"{nameof(FileWorker)} is active at {DateTime.Now:R}");
+            await writer.WriteLineAsync($"{nameof(FileWorker)} is active at {DateTime.UtcNow:R}");
 
             await Task.Delay(_delay, stoppingToken);
         }
